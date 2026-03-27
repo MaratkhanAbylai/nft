@@ -1,0 +1,62 @@
+<div class="container">
+
+    @if(!created) {
+        <p class="capture">Create Item</p>
+
+        <form>
+
+            <div>
+                <label for="name">Item Name</label>
+                <input [(ngModel)]="nftName" name="nftName" type="text" placeholder="Type here">
+            </div>
+
+            <div>
+                <label for="category">Category</label>
+                <select name="category" [(ngModel)]="selectedCategory">
+                    <option value="" disabled selected>Select one</option>
+                    <option value="Collectibles">Collectibles</option>
+                    <option value="Games">Games</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="collection">Item Type</label>
+                <select name="collection" [(ngModel)]="selectedCollectionName">
+                    <option value="" disabled selected>Select one</option>
+                    <option value="Collection of nightmares">Collection of nightmares</option>
+                    <option value="Apes">Apes</option>
+                    <option value="GALLERY_13">GALLERY_13</option>
+                    <option value="USSR">USSR</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="price" class="price">Price</label>
+                <input [(ngModel)]="nftPrice" name="price" type="number" placeholder="Set price QUBE">
+            </div>
+
+            <div>
+                <label for="description">Description</label>
+                <textarea 
+                 maxlength="300" 
+                 [(ngModel)]="description"
+                 name="description"
+                 placeholder="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo, alias."></textarea>
+            </div>
+
+            <div class="btn-block">
+                <button (click)=createNft()>Create!</button>
+            </div>
+
+        </form>
+    } @else {
+
+        <p class="capture">Congratulation!</p>
+        <div class="img">
+            <img src="images/nfts/monkey.png" alt="Nft изображение">
+            <p class="text">Your {{ nftName }} was succesfully created.</p>
+        </div>
+
+    }
+
+</div>

@@ -1,0 +1,158 @@
+.container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: center;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #fff;
+    margin-left: 60px;
+    gap: 40px;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.capture-block {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.capture {
+    font-size: 60px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 50px;
+}
+
+.upload-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.upload-btn {
+    width: 200px;
+    height: 200px;
+    background-color: rgba(17, 17, 17, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.upload-btn img:hover {
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+form {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 9px;
+}
+
+form span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+}
+
+.username-label, .bio-label {
+    font-size: 30px;
+    font-weight: 700;
+    display: flex;
+    width: 560px;
+}
+
+.username-input, textarea {
+    background-color: rgba(9, 11, 13, 0.6);
+    border: none;
+    width: 560px;
+    height: 48px;
+    border-radius: 10px;
+    color: #fff;
+    padding-left: 20px;
+    font-size: 18px;
+}
+
+.username-input:focus {
+    outline: none;
+}
+
+textarea {
+    resize: none;
+    padding-left: 5px;
+    padding-top: 10px;
+    height: 144px;
+    border-radius: 10px;
+}
+
+.left-symbol {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.left-symbol p {
+    font-size: 14px;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.create-btn {
+    width: 152px;
+    height: 32px;
+    border-radius: 10px;
+    background-color: rgba(57, 206, 154, 1);
+    border: none;
+    color: #fff;
+    margin-top: 44px;
+    margin-bottom: 20px;
+}
+
+.username-block, .bio-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.username-block {
+    margin-top: 50px;
+    font-size: 40px;
+}
+
+.bio-block {
+    font-size: 30px;
+}
+
+.bio-capture {
+    font-size: 40px;
+    font-weight: 700;
+}

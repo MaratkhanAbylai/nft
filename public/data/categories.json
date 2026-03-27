@@ -1,0 +1,10 @@
+[
+    {
+        "category-name": "Games",
+        "childs": ["con", "g_13"]
+    },
+    {
+        "category-name": "Collectibles",
+        "childs": ["apes", "ussr"]
+    }
+]

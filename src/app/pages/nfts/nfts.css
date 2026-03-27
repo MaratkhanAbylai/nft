@@ -1,0 +1,225 @@
+p {
+    color: rgba(57, 206, 154, 1);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+    gap: 44px;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.capture {
+    font-size: 60px;
+    color: rgba(255, 255, 255, 1);
+}
+
+input {
+    background-color: rgba(9, 11, 13, 0.6);
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 217px;
+    height: 48px;
+    padding-left: 10px;
+    background-image: url('../../../../public/images/icons/search.svg');
+    background-repeat: no-repeat;
+    background-position: 10px;
+    color: #fff;
+}
+
+input::placeholder {
+    padding-left: 43px;
+}
+
+input:not(:placeholder-shown) {
+    background-image: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.card {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.author-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.creator-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.btns-block {
+    display: flex;
+    align-items: center;
+    gap: 19px;
+}
+
+.heart-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 12px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.heart {
+    position: relative;
+    width: 7.5px; 
+    height: 7.5px;
+    background-color: #42d392;
+    transform: rotate(-45deg);
+    margin: 0; 
+    display: block;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 7.5px;
+    height: 7.5px;
+    background-color: inherit;
+    border-radius: 50%;
+}
+
+.heart::before { top: -3.75px; left: 0; }
+.heart::after { top: 0; left: 3.75px; }
+
+.author-block span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.more-actions {
+    width: 24px;
+    height: 16px;
+    border: 1px solid rgba(57, 206, 154, 1);
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+}
+
+.circle {
+    background-color: rgba(57, 206, 154, 1);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+}
+
+.nft-block {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.nft-image {
+    width: 280px;
+    height: 310px;
+}
+
+.info {
+    background-color: rgba(9, 11, 13, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 249px;
+    gap: 46px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.names {
+    width: 240px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.category {
+    display: flex;
+    gap: 44px;
+}
+
+.category-p {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.collection-name {
+    color: #fff;
+}
+
+.price-and-btn {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 23px;
+    justify-content: center;
+    align-items: center;
+}
+
+span.price {
+    width: 240px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.price {
+    color: #fff;
+    font-size: 16px;
+}
+
+.buy-btn {
+    width: 240px;
+    height: 32px;
+    border: 1px solid rgba(57, 206, 154, 1);
+    background-color: transparent;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #fff;
+}

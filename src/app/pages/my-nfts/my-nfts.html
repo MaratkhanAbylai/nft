@@ -1,0 +1,69 @@
+<div class="container">
+    <header>
+        <p class="capture">NFT's</p>
+    
+        <input type="text" placeholder="Search">
+    </header>
+    @if(!haveNfts) {
+        <p class="capture">У вас пока нету nft</p>
+    } @else {
+        <div class="cards">
+            @for(nft of myNfts; track $index) {
+                <div class="card">
+                
+                    <div class="author-block">
+
+                        <div class="creator-block">
+                            <img class="avatar" [src]="nft.avatar" alt="Аватарка пользователя">
+                            <p>{{ nft["created-by"] }}</p>
+                        </div>
+
+                        <div class="btns-block">
+                            <span>
+                                <div class="heart-box">
+                                    <div class="heart"></div>
+                                </div>
+                                <p class="likes-count">{{ nft.likes }}</p>
+                            </span>
+                            <div class="more-actions">
+                                <div class="circle"></div>
+                                <div class="circle"></div>
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nft-block">
+
+                        <img class="nft-image" [src]="nft['nft-picture']" alt="Картинка NFT">
+
+                        <div class="info">
+
+                            <div class="text">
+
+                                <div class="names">
+                                    <p class="collection-name">{{ nft["collection-name"] }}</p>
+                                    <p class="nft-name">{{ nft.name }}</p>
+                                </div>
+
+                                <div class="category">
+                                    <p class="category-p">Category</p>
+                                    <p>{{ nft.category }}</p>
+                                </div>
+                            </div>
+
+                            <div class="price-and-btn">
+                                <span class="price">
+                                    <p class="price">$ {{ nft.price * 49.99 }}</p>
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                
+                </div>
+            }
+        </div>
+    }    
+</div>

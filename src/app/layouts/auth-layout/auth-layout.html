@@ -1,0 +1,41 @@
+<div class="wrapper">    
+    @if(mode === "register") {
+        
+        <div class="container">
+            <div class="close-btn" routerLink="">
+                <span></span>
+                <span></span>
+            </div>
+            <span class="capture">
+                <p>Register</p>
+            </span>
+            <div class="inputs">
+                <input [(ngModel)]="loginValue" type="text" placeholder="Login">
+                <input [(ngModel)]="passwordValue" type="password" placeholder="Password">
+            </div>
+            <span class="link">
+                <a (click)="changeMode()">Login</a>
+            </span>
+            <button (click)="register()">Register</button>
+        </div>
+    
+    } @else {
+        <div class="container">
+            <div class="close-btn" routerLink="">
+                <span></span>
+                <span></span>
+            </div>
+            <span class="capture">
+            <p>Login</p>
+            </span>
+            <div class="inputs">
+                <input [(ngModel)]="loginValue" type="text" placeholder="Login">
+                <input [(ngModel)]="passwordValue"  type="password" placeholder="Password">
+            </div>
+            <span class="link">    
+                <a (click)="changeMode()">Register</a>
+            </span>
+            <button (click)="login()">Login</button>
+        </div>
+    }
+</div>

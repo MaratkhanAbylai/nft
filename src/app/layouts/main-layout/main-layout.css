@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    max-width: 100%;
+    justify-content: flex-start;
+    gap: 28px;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: rgba(9, 11, 13, 0.5);
+    min-height: 100vh;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+nav a, nav p {
+    color: rgba(255, 255, 255, 1);
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+}

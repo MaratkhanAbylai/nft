@@ -1,0 +1,84 @@
+[
+    {
+        "id": 1,
+        "created-by": "KKSpecial",
+        "likes": 43,
+        "avatar": "/images/avatars/default.jpg",
+        "nft-picture": "images/nfts/image.png",
+        "collection-name": "Collection of nightmares",
+        "name": "Nightmare (pt.15) 10☓10",
+        "category": "Games",
+        "price": 1,
+        "comments": []
+    },
+    {
+        "id": 2,
+        "created-by": "MorugaNFT",
+        "likes": 88,
+        "avatar": "/images/avatars/MorugaNFT.png",
+        "collection-name": "Apes",
+        "name": "King Bored Ape #2414",
+        "category": "Collectibles",
+        "price": 1
+    },
+    {
+        "id": 3,
+        "created-by": "User-71068",
+        "likes": 24,
+        "avatar": "/images/avatars/user.png",
+        "collection-id": "GALLERY_13",
+        "name": "HorseNFT #1332",
+        "category": "Games",
+        "price": 1
+    },
+    {
+        "id": 4,
+        "created-by": "Angelina2022",
+        "likes": 93,
+        "avatar": "/images/avatars/angelina.png",
+        "collection-id": "USSR",
+        "name": "USSR 2.Edition 07",
+        "category": "Collectibles",
+        "price": 1
+    },
+    {
+        "id": 5,
+        "created-by": "Angelina2022",
+        "likes": 93,
+        "avatar": "/images/avatars/angelina.png",
+        "collection-id": "USSR",
+        "name": "USSR 2.Edition 07",
+        "category": "Collectibles",
+        "price": 1
+    },
+    {
+        "id": 6,
+        "created-by": "MorugaNFT",
+        "likes": 88,
+        "avatar": "/images/avatars/MorugaNFT.png",
+        "collection-id": "Apes",
+        "name": "King Bored Ape #2414",
+        "caregory": "Collectibles",
+        "price": 1
+    },
+    {
+        "id": 7,
+        "created-by": "KKSpecial",
+        "avatar": "/images/avatars/KKSpecial.png",
+        "likes": 43,
+        "collection-id": "Collection of nightmares",
+        "name": "Nightmare (pt.15) 10☓10",
+        "category": "Games",
+        "price": 1
+    },
+    {
+        "id": 8,
+        "created-by": "User-71068",
+        "likes": 24,
+        "avatar": "/images/avatars/user.png",
+        "collection-id": "GALLERY_13",
+        "name": "HorseNFT #1332",
+        "category": "Games",        
+        "price": 1
+    }
+]

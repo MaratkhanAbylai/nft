@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    background-color: #080a0f; 
+    background-image: 
+      radial-gradient(at 20% 10%, hsla(195, 100%, 45%, 0.3) 0px, transparent 40%),
+      radial-gradient(at 85% 45%, hsla(260, 40%, 40%, 0.25) 0px, transparent 45%),
+      radial-gradient(at 35% 90%, hsla(200, 80%, 40%, 0.2) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(190, 100%, 30%, 0.15) 0px, transparent 40%);
+    background-attachment: fixed;
+}

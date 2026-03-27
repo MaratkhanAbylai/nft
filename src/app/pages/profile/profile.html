@@ -1,0 +1,58 @@
+<div class="container">
+    @if(!haveProfile) {
+        <header>
+            <div class="capture-block">
+                <p class="capture">Create Profile</p>
+            </div>
+            <div class="upload-block">
+                <div class="upload-btn">
+                    <input type="file" #inputFile accept=".png, .jpg">
+                    <img (click)="inputFile.click()" src="/images/icons/profile-picture-icon.svg" alt="Загрузите изображение">
+                </div>
+                <span class="description">
+                    <p>Recomendes format PNG or JPG,</p>
+                    <p>size is at least 300x300 px, max size 10</p>
+                    <p>mb</p>
+                </span>
+            </div>
+        </header>
+        
+        <main>
+        
+            <form action="">
+
+                <span>
+                    <label class="username-label">Username</label>
+                    <input name="username" [(ngModel)]="username" class="username-input" type="text" placeholder="Firstname and surname">
+                </span>
+
+                <span>
+                    <label class="bio-label">Bio</label>
+                    <textarea name="bio" 
+                     [(ngModel)]="bio" 
+                     class="bio-textarea" 
+                     maxlength="300"
+                     placeholder="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, a.">
+                    </textarea>
+                    <div class="left-symbol">
+                        <p>{{ bio.length }}/300 Symbols left</p>
+                    </div>
+                </span>
+                <button class="create-btn" (click)="createProfile()">Create!</button>
+
+            </form>
+
+        </main>
+    } @else if(haveProfile && profile !== null) {
+
+        <div class="username-block">
+            <p>Username: {{ profile.username }}</p>
+        </div>
+
+        <div class="bio-block">
+            <p class="bio-capture">Bio:</p>
+            <p>{{ profile.bio }}</p>
+        </div>
+
+    }
+</div>

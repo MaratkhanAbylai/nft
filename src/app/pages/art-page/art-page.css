@@ -1,0 +1,221 @@
+img {
+    object-fit: cover;
+}
+
+p {
+    color: #fff;
+}
+
+button {
+    width: 152px;
+    height: 32px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: rgba(57, 206, 154, 1);
+    border: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 1240px;
+    gap: 55px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.back-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    margin-top: 50px;
+    gap: 10px;
+}
+
+.left-arrow {
+    width: 10px;
+    height: 7px;
+    object-fit: contain;
+}
+
+a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+}
+
+.buy-block {
+    display: flex;
+    gap: 60px;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.buy-block .nft-image {
+    width: 580px;
+    height: 460px;
+    border-radius: 20px;
+}
+
+.nft-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 25px;
+}
+
+.nft-name {
+    font-weight: 700;
+    font-size: 60px;
+}
+
+.info-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.category {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 336px;
+}
+
+.category div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.category-value {
+    color: rgba(57, 206, 154, 1);
+}
+
+.price-block {
+    display: flex;
+    width: 170px;
+    justify-content: space-between;
+}
+
+.description-and-comments {
+    display: flex;
+    gap: 65px;
+}
+
+.description-block {
+    max-width: 540px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.capture {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.description {
+    text-align: left;
+
+}
+
+.comments-block {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.capture-and-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.comments {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.avatar-and-login {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.comment-text {
+    text-align: left;
+}
+
+.commentate-block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+textarea {
+    resize: none;
+    padding-left: 5px;
+    padding-top: 10px;
+    height: 144px;
+    border-radius: 10px;
+    background-color: rgba(9, 11, 13, 0.6);
+    border: none;
+    width: 540px;
+    color: #fff;
+    font-size: 14px;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.btns {
+    display: flex;
+    gap: 10px;
+}
+
+.btns button {
+    width: 100px;
+}
+
+.big-text {
+    font-size: 60px;
+    font-weight: 700;
+}

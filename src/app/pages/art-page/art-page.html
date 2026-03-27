@@ -1,0 +1,83 @@
+<div class="container">
+    <div class="back-btn" routerLink="/" (click)="deleteCurrentNft()">
+        <img src="images/icons/left-arrow.png" alt="left arrow" class="left-arrow">
+        <a>Back to Collection</a>
+    </div>
+    <div class="wrapper">    
+        <div class="buy-block">
+            <img src="images/nfts/chest.png" alt="nft изображение" class="nft-image">
+            <div class="nft-info">
+                <div class="info-wrapper">
+                    <p class="nft-name">{{ currentNft }}</p>
+                    <div class="category">
+                        <div>
+                            <p>Colection</p>
+                            <p class="category-value">{{ collection }}</p>
+                        </div>
+                        <div>
+                            <p>Category</p>
+                            <p class="category-value">{{ category }}</p>
+                        </div>
+                        <div>
+                            <p>Creator</p>
+                            <p class="category-value"> {{ creator }} </p>
+                        </div>
+                    </div>
+                    <div class="price-block">
+                        <p>Price</p>
+                        <p class="price">$ {{price}}</p>
+                    </div>
+                </div>
+                <button>Buy</button>
+            </div>
+        </div>
+    
+        <div class="description-and-comments">
+            <div class="description-block">
+                <p class="capture">NFT description</p>
+                <p class="description">
+                    Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser Occidental.
+                </p>
+            </div>
+            @if(!commentate) {
+                <div class="comments-block">
+                    <div class="capture-and-btn">
+                        <p class="capture">Comments</p>
+                        <button (click)="setCommentate()">Add comment</button>
+                    </div>
+                    <div class="comments">
+                        @if(comments.length === 0) {
+                            <p>0 комментариев</p>
+                        } @else {
+                            @for(comment of comments; track $index) {
+                                <div class="comment">
+                                    <div class="avatar-and-login">
+                                        <img [src]="comment['author-avatar']" alt="Аватарка" class="avatar">
+                                        <p class="login">{{ comment.author }}</p>
+                                    </div>
+                                    <p class="comment-text">{{ comment.text }}</p>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            } @else {
+                <div class="commentate-block">
+                    <textarea [(ngModel)]="comment" maxlength="400" placeholder="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima, earum."></textarea>
+                    <div class="btns">
+                        <button (click)="setCommentate()">Cancel</button>
+                        <button (click)="addComment()">Add</button>
+                    </div>
+                </div>
+            }
+        </div>
+    
+        <div class="more-block">
+            <p class="big-text">More by Anonymous-User-9de72</p>
+            <div class="nfts">
+            
+            </div>
+        </div>
+    </div>
+
+</div>

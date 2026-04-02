@@ -1,6 +1,6 @@
 <div class="container">
     <header>
-        <p class="capture">NFT's</p>
+        <p class="capture">My NFT's</p>
     
         <input type="text" placeholder="Search">
     </header>
@@ -56,6 +56,11 @@
                                 <span class="price">
                                     <p class="price">$ {{ nft.price * 49.99 }}</p>
                                 </span>
+                                @if(nft["for-sale"]) {
+                                    <button (click)="setSaleStatus(nft)">Снять с продажи</button>
+                                } @else {
+                                    <button (click)="setSaleStatus(nft)">Выставить на продажу</button>
+                                }
                             </div>
 
                         </div>

@@ -1,5 +1,19 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
+
+interface INft {
+  id: number,
+  "created-by": string,
+  likes: number,
+  likers: Array<string>,
+  avatar: string,
+  "nft-picture": string,
+  "collection-name": string,
+  name: string,
+  category: string,
+  price: string,
+  comments: Array<string>
+}
 
 @Component({
   selector: 'app-nfts',
@@ -11,20 +25,39 @@ import { RouterLink } from '@angular/router';
 export class Nfts {
 
   nfts: Array<any> = [];
-  clicked: boolean = false;
+  currentUser: string = localStorage.getItem('currentUser')!;
 
-  constructor() {
+  constructor(private router: Router) {
     let rawData = localStorage.getItem('nfts');
     let nfts = rawData ? JSON.parse(rawData) : [];
     this.nfts = nfts;
   }
 
-  openNft() {
-    this.clicked = true;
+  openNft(currentNft: string) {
+    if(!localStorage.getItem('currentUser')) {
+      alert('Чтобы открыть nft, вам нужно войти в учетную запись');
+      throw new Error('Чтобы открыть nft, вам нужно войти в учетную запись');
+    }
+    localStorage.setItem("currentNft", currentNft);
+    this.router.navigate(['art-page']);
   }
 
-  setCurrentNft(currentNft: string) {
-    localStorage.setItem("currentNft", currentNft);
+  setLike(nft: INft) {
+    
+    if(localStorage.getItem('currentUser')) {
+      let userIndex: number = nft.likers.indexOf(this.currentUser);
+
+      if(userIndex !== -1) {
+        nft.likers.splice(userIndex, 1);
+        nft.likes--;
+      } else {
+        nft.likers.push(this.currentUser);
+        nft.likes++;
+      }
+
+      localStorage.setItem('nfts', JSON.stringify(this.nfts));
+    }
+
   }
 
 }

@@ -6,7 +6,7 @@
             </div>
             <div class="upload-block">
                 <div class="upload-btn">
-                    <input type="file" #inputFile accept=".png, .jpg">
+                    <input  type="file" #inputFile accept=".png, .jpg">
                     <img (click)="inputFile.click()" src="/images/icons/profile-picture-icon.svg" alt="Загрузите изображение">
                 </div>
                 <span class="description">
@@ -45,14 +45,31 @@
         </main>
     } @else if(haveProfile && profile !== null) {
 
-        <div class="username-block">
-            <p>Username: {{ profile.username }}</p>
-        </div>
+        @if(isEditing) {
+            <div class="username-block">
+            <p>Username:</p>
+            <input [(ngModel)]="username" type="text">
+            </div>
 
-        <div class="bio-block">
-            <p class="bio-capture">Bio:</p>
-            <p>{{ profile.bio }}</p>
-        </div>
+            <div class="bio-block">
+                <p class="bio-capture">Bio:</p>
+                <textarea [(ngModel)]="bio" type="text"></textarea>
+            </div>
+            <button (click)="save()">Save</button>
+
+        } @else {
+            <div class="username-block">
+            <p>Username: {{ profile.username }}</p>
+            </div>
+
+            @if(bio.length > 0) {
+                <div class="bio-block">
+                    <p class="bio-capture">Bio:</p>
+                    <p>{{ profile.bio }}</p>
+                </div>
+            }
+            <button (click)="edit()">Edit</button>
+        }
 
     }
 </div>

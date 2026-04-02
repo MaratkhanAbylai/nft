@@ -63,8 +63,10 @@ export class CreateNft {
 
     let newNft = {
       id: id,
+      "for-sale": true,
       "created-by": localStorage.getItem("currentUser"),
       likes: 0,
+      likers: [],
       avatar: 'images/avatars/default.jpg',
       "nft-picture": 'images/nfts/monkey.png',
       "collection-name": this.selectedCollectionName,

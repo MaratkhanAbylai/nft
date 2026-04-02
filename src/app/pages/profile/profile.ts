@@ -20,6 +20,7 @@ export class Profile {
   profile: IProfile | null = null;
   username: string = '';
   bio: string = '';
+  isEditing: boolean = false;
 
   constructor() {
     let rawData = localStorage.getItem('profiles');
@@ -30,13 +31,14 @@ export class Profile {
         if(profile.login === localStorage.getItem('currentUser')) {
           this.haveProfile = true;
           this.profile = profile;
+          this.username = profile.username;
+          this.bio = profile.bio;
         }
       }
     }
   }
 
-  createProfile(): void {
-
+  validation(): void {
     if(this.username.length > 20) {
       alert('Имя пользователя не может быть больше 20 символов');
       throw new Error('Имя пользователя не может быть больше 20 символов');
@@ -48,11 +50,16 @@ export class Profile {
     }
 
     for(let word of this.username.split(' ')) {
-      if(word.length < 0 && word[0] !== word[0].toUpperCase() && word[0] === word[0].toLowerCase()) {
+      if(word[0] !== word[0].toUpperCase() && word[0] === word[0].toLowerCase()) {
         alert('Каждое слово в имени пользователя должна начинаться с заглавной буквы');
         throw new Error('Каждое слово в имени пользователя должна начинаться с заглавной буквы');
       }
     }
+  }
+
+  createProfile(): void {
+
+    this.validation();
 
     let newProfile = {
       login: localStorage.getItem('currentUser'),
@@ -68,6 +75,26 @@ export class Profile {
 
     localStorage.setItem('profiles', JSON.stringify(this.profiles));
     alert('Профиль создан!');
+  }
+
+  edit(): void {    
+    this.isEditing = true;
+  }
+
+  save(): void {
+    this.validation();
+    
+    this.profiles.forEach(profile => {
+      if(profile.login === localStorage.getItem('currentUser')) {
+        this.profile!.username = this.username;
+        this.profile!.bio = this.bio;
+      }
+    });
+
+    localStorage.setItem('profiles', JSON.stringify(this.profiles));
+
+    this.isEditing = false;
+
   }
 
 }

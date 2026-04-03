@@ -19,6 +19,7 @@ export class ArtPage {
   collection: string = '';
   category: string = '';
   creator: string = '';
+  owner: string = '';
   price: number = 0;
 
   constructor() {
@@ -32,6 +33,7 @@ export class ArtPage {
         this.collection = nft["collection-name"];
         this.category = nft.category;
         this.creator = nft["created-by"];
+        this.owner = nft.owner;
         this.price = nft.price * 49.99;
       }
     }
@@ -67,6 +69,16 @@ export class ArtPage {
     this.setCommentate();
     this.comment = '';
 
+  }
+
+  buy(): void {
+    for(let nft of this.nfts) {
+      if(nft.name === this.currentNft) {
+        nft.owner = this.currentUser;
+      }
+    }
+    localStorage.setItem('nfts', JSON.stringify(this.nfts));
+    alert('Purchased!');
   }
 
 }

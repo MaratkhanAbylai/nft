@@ -15,7 +15,7 @@
 
                             <div class="creator-block">
                                 <img class="avatar" [src]="nft.avatar" alt="Аватарка пользователя">
-                                <p>{{ nft["created-by"] }}</p>
+                                <p>{{ nft.owner }}</p>
                             </div>
 
                             <div class="btns-block">
@@ -33,13 +33,13 @@
                             </div>
                         </div>
 
-                        <div class="nft-block" (click)="openNft(nft.name)">
+                        <div class="nft-block">
 
-                            <img class="nft-image" [src]="nft['nft-picture']" alt="Картинка NFT">
+                            <img (click)="openNft(nft.name)" class="nft-image" [src]="nft['nft-picture']" alt="Картинка NFT">
 
                             <div class="info">
 
-                                <div class="text">
+                                <div class="text" (click)="openNft(nft.name)">
 
                                     <div class="names">
                                         <p class="collection-name">{{ nft["collection-name"] }}</p>
@@ -53,14 +53,13 @@
                                 </div>
 
                                 <div class="price-and-btn">
-                                    <span class="price">
+                                    <span class="price" (click)="openNft(nft.name)">
                                         <p class="price">$ {{ nft.price * 49.99}}</p>
                                     </span>
-                                    @if(nft["created-by"] !== currentUser) {
-                                        <button class="buy-btn">Buy</button>
-                                    }
                                 </div>
-
+                                @if(nft["owner"] !== currentUser) {
+                                    <button (click)="buy(nft)" class="buy-btn">Buy</button>
+                                }
                             </div>
 
                         </div>

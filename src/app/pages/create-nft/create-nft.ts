@@ -65,6 +65,7 @@ export class CreateNft {
       id: id,
       "for-sale": true,
       "created-by": localStorage.getItem("currentUser"),
+      owner: localStorage.getItem('currentUser'),
       likes: 0,
       likers: [],
       avatar: 'images/avatars/default.jpg',

@@ -4,6 +4,7 @@ import { RouterLink, Router } from '@angular/router';
 interface INft {
   id: number,
   "created-by": string,
+  owner: string,
   likes: number,
   likers: Array<string>,
   avatar: string,
@@ -44,7 +45,7 @@ export class Nfts {
 
   setLike(nft: INft) {
     
-    if(localStorage.getItem('currentUser')) {
+    if(this.currentUser) {
       let userIndex: number = nft.likers.indexOf(this.currentUser);
 
       if(userIndex !== -1) {
@@ -58,6 +59,14 @@ export class Nfts {
       localStorage.setItem('nfts', JSON.stringify(this.nfts));
     }
 
+  }
+
+  buy(nft: INft): void {
+    if(this.currentUser) {
+      nft.owner = this.currentUser;
+      localStorage.setItem('nfts', JSON.stringify(this.nfts));
+      alert('purchased');
+    }
   }
 
 }

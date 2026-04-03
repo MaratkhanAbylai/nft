@@ -1,100 +1,151 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 interface IProfile {
-  login: string | null,
-  username: string | null,
-  bio: string | null
+  login: string;
+  username: string;
+  bio: string;
 }
 
 @Component({
   selector: 'app-profile',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
-export class Profile {
-
+export class Profile implements OnInit {
   haveProfile: boolean = false;
   profiles: Array<IProfile> = [];
   profile: IProfile | null = null;
+  
   username: string = '';
   bio: string = '';
   isEditing: boolean = false;
 
-  constructor() {
-    let rawData = localStorage.getItem('profiles');
-    let profiles = rawData ? JSON.parse(rawData) : [];
-    if(profiles.length > 0) {
-      this.profiles = profiles;
-      for(let profile of profiles) {
-        if(profile.login === localStorage.getItem('currentUser')) {
-          this.haveProfile = true;
-          this.profile = profile;
-          this.username = profile.username;
-          this.bio = profile.bio;
-        }
-      }
+  avatarUrl: string | null = null;
+  currentLogin: string = localStorage.getItem('currentUser') || '';
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  async ngOnInit() {
+    await this.initData();
+  }
+
+  private openDB(): Promise<IDBDatabase> {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open('AppDatabase', 1);
+      request.onupgradeneeded = () => {
+        const db = request.result;
+        if (!db.objectStoreNames.contains('avatars')) db.createObjectStore('avatars');
+        if (!db.objectStoreNames.contains('nfts')) db.createObjectStore('nfts', { keyPath: 'name' });
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async initData() {
+    const rawData = localStorage.getItem('profiles');
+    this.profiles = rawData ? JSON.parse(rawData) : [];
+
+    const found = this.profiles.find(p => p.login === this.currentLogin);
+    if (found) {
+      this.profile = found;
+      this.haveProfile = true;
+      this.username = found.username;
+      this.bio = found.bio;
+      await this.loadAvatar(this.currentLogin);
     }
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.avatarUrl = reader.result as string;
+        this.cdr.detectChanges();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  async saveAvatar(login: string, base64Data: string) {
+    const db = await this.openDB();
+    const tx = db.transaction('avatars', 'readwrite');
+    tx.objectStore('avatars').put(base64Data, login);
+    return new Promise<void>((resolve) => {
+      tx.oncomplete = () => resolve();
+    });
+  }
+
+  async loadAvatar(login: string) {
+    const db = await this.openDB();
+    const tx = db.transaction('avatars', 'readonly');
+    const store = tx.objectStore('avatars');
+    
+    const request = store.get(login);
+    request.onsuccess = () => {
+      if (request.result) {
+        this.avatarUrl = request.result;
+        this.cdr.detectChanges();
+      }
+    };
   }
 
   validation(): void {
-    if(this.username.length > 20) {
-      alert('Имя пользователя не может быть больше 20 символов');
-      throw new Error('Имя пользователя не может быть больше 20 символов');
+    if (!this.username || this.username.length > 20) {
+      alert('Имя пользователя некорректно');
+      throw new Error('Validation failed');
     }
-
-    if(!this.username) {
-      alert('Поля имени пользователя должна быть заполнена');
-      throw new Error('Поля имени пользователя должна быть заполнена');
-    }
-
-    for(let word of this.username.split(' ')) {
-      if(word[0] !== word[0].toUpperCase() && word[0] === word[0].toLowerCase()) {
-        alert('Каждое слово в имени пользователя должна начинаться с заглавной буквы');
-        throw new Error('Каждое слово в имени пользователя должна начинаться с заглавной буквы');
+    this.username.split(' ').forEach(word => {
+      if (word && word[0] !== word[0].toUpperCase()) {
+        alert('Каждое слово должно быть с заглавной буквы');
+        throw new Error('Validation failed');
       }
-    }
+    });
   }
 
-  createProfile(): void {
-
+  async createProfile() {
     this.validation();
 
-    let newProfile = {
-      login: localStorage.getItem('currentUser'),
+    const newProfile: IProfile = {
+      login: this.currentLogin,
       username: this.username,
       bio: this.bio
+    };
+
+    if (this.avatarUrl) {
+      await this.saveAvatar(this.currentLogin, this.avatarUrl);
     }
 
-    this.profile = newProfile;
-
     this.profiles.push(newProfile);
-
-    this.haveProfile = true;
-
     localStorage.setItem('profiles', JSON.stringify(this.profiles));
-    alert('Профиль создан!');
+    this.profile = newProfile;
+    this.haveProfile = true;
+    this.cdr.detectChanges();
   }
 
-  edit(): void {    
+  edit() {
     this.isEditing = true;
   }
 
-  save(): void {
+  async save() {
     this.validation();
     
-    this.profiles.forEach(profile => {
-      if(profile.login === localStorage.getItem('currentUser')) {
-        this.profile!.username = this.username;
-        this.profile!.bio = this.bio;
-      }
-    });
-
+    this.profiles = this.profiles.map(p => 
+      p.login === this.currentLogin ? { ...p, username: this.username, bio: this.bio } : p
+    );
     localStorage.setItem('profiles', JSON.stringify(this.profiles));
+    
+    if (this.avatarUrl) {
+      await this.saveAvatar(this.currentLogin, this.avatarUrl);
+    }
 
+    this.profile!.username = this.username;
+    this.profile!.bio = this.bio;
     this.isEditing = false;
-
+    this.cdr.detectChanges();
   }
-
 }

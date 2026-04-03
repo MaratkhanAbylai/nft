@@ -28,7 +28,9 @@
                         <p class="price">$ {{price}}</p>
                     </div>
                 </div>
-                <button>Buy</button>
+                @if(owner !== currentUser) {
+                    <button (click)="buy()">Buy</button>
+                }
             </div>
         </div>
     

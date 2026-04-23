@@ -5,7 +5,7 @@
     </div>
     <div class="wrapper">    
         <div class="buy-block">
-            <img src="images/nfts/chest.png" alt="nft изображение" class="nft-image">
+            <img [src]="imageUrl" alt="nft изображение" class="nft-image">
             <div class="nft-info">
                 <div class="info-wrapper">
                     <p class="nft-name">{{ currentNft }}</p>
@@ -38,7 +38,7 @@
             <div class="description-block">
                 <p class="capture">NFT description</p>
                 <p class="description">
-                    Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser Occidental.
+                    {{description}}
                 </p>
             </div>
             @if(!commentate) {
@@ -54,7 +54,7 @@
                             @for(comment of comments; track $index) {
                                 <div class="comment">
                                     <div class="avatar-and-login">
-                                        <img [src]="comment['author-avatar']" alt="Аватарка" class="avatar">
+                                        <img [src]="getAuthorAvatar(comment.author)" alt="Аватарка" class="avatar">
                                         <p class="login">{{ comment.author }}</p>
                                     </div>
                                     <p class="comment-text">{{ comment.text }}</p>
@@ -75,9 +75,9 @@
         </div>
     
         <div class="more-block">
-            <p class="big-text">More by Anonymous-User-9de72</p>
+            <p class="big-text">More by {{ creator }}</p>
             <div class="nfts">
-            
+                
             </div>
         </div>
     </div>

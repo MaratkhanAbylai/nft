@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class ArtPage {
   
+  readonly AVATAR_BASE_URL = 'http://localhost/public/images/';
+
   comment: string = '';
   commentate: boolean = false;
   comments: Array<any> = [];
@@ -21,8 +23,11 @@ export class ArtPage {
   creator: string = '';
   owner: string = '';
   price: number = 0;
+  imageUrl: string = '';
+  description: string = '';
 
   constructor() {
+
     let rawData = localStorage.getItem("nfts");
     let nfts = rawData ? JSON.parse(rawData) : [];
     this.nfts = nfts;
@@ -35,6 +40,8 @@ export class ArtPage {
         this.creator = nft["created-by"];
         this.owner = nft.owner;
         this.price = nft.price * 49.99;
+        this.imageUrl = nft["nft-picture"];
+        this.description = nft.description;
       }
     }
 
@@ -69,6 +76,19 @@ export class ArtPage {
     this.setCommentate();
     this.comment = '';
 
+  }
+
+  getAuthorAvatar(owner: string): string {
+
+    let rawData: any = localStorage.getItem('profiles');
+    let profiles: any[] = rawData ? JSON.parse(rawData) : [];
+    let foundProfile = profiles.find(p => p.login === owner);
+
+    if(foundProfile && foundProfile['avatar_url']) {
+      return `http://localhost/public/images/${foundProfile['avatar_url']}`;
+    }
+
+    return 'images/avatars/default.jpg';
   }
 
   buy(): void {

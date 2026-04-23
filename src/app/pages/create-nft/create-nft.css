@@ -2,7 +2,7 @@
     display: flex;
     min-height: 100vh;
     min-width: 100%;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     text-align: center;
@@ -15,6 +15,18 @@
 
 .capture, label {
     font-weight: 700;
+}
+
+.upload-block {
+    width: 580px;
+    height: 357px;
+    background-color: rgba(9, 11, 13, 0.6);
+    border-radius: 10px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .capture {
@@ -91,4 +103,10 @@ button {
     background-color: rgba(57, 206, 154, 1);
     border-radius: 10px;
     font-size: 16px;
+}
+
+.created-nft-img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
 }

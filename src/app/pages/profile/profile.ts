@@ -5,6 +5,7 @@ interface IProfile {
   login: string;
   username: string;
   bio: string;
+  avatar_url: string;
 }
 
 @Component({
@@ -15,137 +16,126 @@ interface IProfile {
   styleUrl: './profile.css',
 })
 export class Profile implements OnInit {
+  readonly AVATAR_BASE_URL = 'http://localhost/public/images/';
+  readonly API_URL = 'http://localhost/backend/upload_avatar.php';
+
   haveProfile: boolean = false;
-  profiles: Array<IProfile> = [];
   profile: IProfile | null = null;
   
   username: string = '';
   bio: string = '';
   isEditing: boolean = false;
-
   avatarUrl: string | null = null;
+  selectedFile: File | null = null;
   currentLogin: string = localStorage.getItem('currentUser') || '';
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  async ngOnInit() {
-    await this.initData();
+  ngOnInit() {
+    this.initData();
   }
 
-  private openDB(): Promise<IDBDatabase> {
-    return new Promise((resolve, reject) => {
-      const request = indexedDB.open('AppDatabase', 1);
-      request.onupgradeneeded = () => {
-        const db = request.result;
-        if (!db.objectStoreNames.contains('avatars')) db.createObjectStore('avatars');
-        if (!db.objectStoreNames.contains('nfts')) db.createObjectStore('nfts', { keyPath: 'name' });
-      };
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error);
-    });
-  }
-
-  async initData() {
+  initData() {
     const rawData = localStorage.getItem('profiles');
-    this.profiles = rawData ? JSON.parse(rawData) : [];
+    const profiles: IProfile[] = rawData ? JSON.parse(rawData) : [];
+    const found = profiles.find(p => p.login === this.currentLogin);
 
-    const found = this.profiles.find(p => p.login === this.currentLogin);
     if (found) {
       this.profile = found;
       this.haveProfile = true;
       this.username = found.username;
       this.bio = found.bio;
-      await this.loadAvatar(this.currentLogin);
+      this.avatarUrl = found.avatar_url ? this.AVATAR_BASE_URL + found.avatar_url : "images/avatars/default.jpg";
     }
   }
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.avatarUrl = reader.result as string;
-        this.cdr.detectChanges();
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-
-  async saveAvatar(login: string, base64Data: string) {
-    const db = await this.openDB();
-    const tx = db.transaction('avatars', 'readwrite');
-    tx.objectStore('avatars').put(base64Data, login);
-    return new Promise<void>((resolve) => {
-      tx.oncomplete = () => resolve();
-    });
-  }
-
-  async loadAvatar(login: string) {
-    const db = await this.openDB();
-    const tx = db.transaction('avatars', 'readonly');
-    const store = tx.objectStore('avatars');
+      this.selectedFile = file;
     
-    const request = store.get(login);
-    request.onsuccess = () => {
-      if (request.result) {
-        this.avatarUrl = request.result;
-        this.cdr.detectChanges();
-      }
-    };
+      this.avatarUrl = URL.createObjectURL(file);
+
+      this.cdr.detectChanges();
+    }
   }
 
-  validation(): void {
-    if (!this.username || this.username.length > 20) {
-      alert('Имя пользователя некорректно');
-      throw new Error('Validation failed');
+  async uploadProcess(): Promise<string> {
+    if (!this.selectedFile) return this.profile?.avatar_url || '';
+
+    const formData = new FormData();
+    formData.append('avatar', this.selectedFile);
+    formData.append('login', this.currentLogin);
+
+    try {
+      const response = await fetch(this.API_URL, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) throw new Error('Ошибка сервера');
+
+      const res = await response.json();
+      return res.url; 
+    } catch (e) {
+      console.error("Fetch error", e);
+      return this.profile?.avatar_url || '';
     }
-    this.username.split(' ').forEach(word => {
-      if (word && word[0] !== word[0].toUpperCase()) {
-        alert('Каждое слово должно быть с заглавной буквы');
-        throw new Error('Validation failed');
-      }
-    });
   }
 
   async createProfile() {
     this.validation();
+    const fileName = await this.uploadProcess();
 
     const newProfile: IProfile = {
       login: this.currentLogin,
       username: this.username,
-      bio: this.bio
+      bio: this.bio,
+      avatar_url: fileName
     };
 
-    if (this.avatarUrl) {
-      await this.saveAvatar(this.currentLogin, this.avatarUrl);
-    }
-
-    this.profiles.push(newProfile);
-    localStorage.setItem('profiles', JSON.stringify(this.profiles));
+    this.saveToLocal(newProfile);
     this.profile = newProfile;
     this.haveProfile = true;
+    this.avatarUrl = this.AVATAR_BASE_URL + fileName;
     this.cdr.detectChanges();
-  }
-
-  edit() {
-    this.isEditing = true;
   }
 
   async save() {
     this.validation();
+    const fileName = await this.uploadProcess();
     
-    this.profiles = this.profiles.map(p => 
-      p.login === this.currentLogin ? { ...p, username: this.username, bio: this.bio } : p
-    );
-    localStorage.setItem('profiles', JSON.stringify(this.profiles));
-    
-    if (this.avatarUrl) {
-      await this.saveAvatar(this.currentLogin, this.avatarUrl);
-    }
+    const updatedProfile: IProfile = {
+      login: this.currentLogin,
+      username: this.username,
+      bio: this.bio,
+      avatar_url: fileName
+    };
 
-    this.profile!.username = this.username;
-    this.profile!.bio = this.bio;
+    this.saveToLocal(updatedProfile);
+    this.profile = updatedProfile;
+    this.avatarUrl = this.AVATAR_BASE_URL + fileName;
     this.isEditing = false;
     this.cdr.detectChanges();
+  }
+
+  private saveToLocal(profile: IProfile) {
+    const rawData = localStorage.getItem('profiles');
+    let profiles: IProfile[] = rawData ? JSON.parse(rawData) : [];
+    const index = profiles.findIndex(p => p.login === profile.login);
+    
+    if (index > -1) profiles[index] = profile;
+    else profiles.push(profile);
+    
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+  }
+
+  edit() { this.isEditing = true; }
+
+  validation(): void {
+    if (!this.username || this.username.length > 20) {
+      alert('Username is incorrect');
+      throw new Error('Validation failed');
+    }
   }
 }

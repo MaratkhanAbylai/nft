@@ -1,3 +1,7 @@
+img {
+    object-fit: cover;
+}
+
 p {
     color: rgba(57, 206, 154, 1);
 }

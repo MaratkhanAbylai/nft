@@ -76,6 +76,11 @@ a {
 .nft-name {
     font-weight: 700;
     font-size: 60px;
+    max-width: 300px;
+}
+
+.nft-image {
+    object-fit: contain;
 }
 
 .info-wrapper {

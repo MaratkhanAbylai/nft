@@ -10,9 +10,12 @@ import { Router } from '@angular/router';
 })
 export class MyNfts {
 
+  readonly AVATAR_BASE_URL = 'http://localhost/public/images/';
+  readonly API_URL = 'http://localhost/backend/upload_avatar.php';
   currentUser: string = localStorage.getItem('currentUser')!;
   myNfts: Array<any> = [];
   nfts: Array<any> = [];
+  avatarUrl: string = '';
   haveNfts: boolean = false;
   constructor(private router: Router) {
     let login = localStorage.getItem("currentUser");
@@ -26,6 +29,20 @@ export class MyNfts {
         }
       }
     }
+  }
+
+  getAuthorAvatar(ownerLogin: string): string {
+    let rawProfiles: any = localStorage.getItem('profiles');
+    let profiles: any[] = rawProfiles ? JSON.parse(rawProfiles) : [];
+    const foundProfile = profiles.find(p => p.login === this.currentUser);
+    
+    if (foundProfile && foundProfile.avatar_url) {
+      return foundProfile.avatar_url.startsWith('http') 
+        ? foundProfile.avatar_url 
+        : this.AVATAR_BASE_URL + foundProfile.avatar_url;
+    }
+    
+    return 'images/avatars/default.jpg';
   }
 
   openNft(currentNft: string) {

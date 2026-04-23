@@ -1,7 +1,28 @@
 <div class="container">
 
     @if(!created) {
-        <p class="capture">Create Item</p>
+        
+        <div class="left-block">
+            <p class="capture">Create Item</p>
+            <input type="file" style="display: none;" #fileInput (change)="onFileSelected($event)">           
+            <div class="upload-block" (click)="fileInput.click()">
+                @if(fileIsSelected) {
+                    <p>Selected</p>
+                } @else {
+                    <p>Upload File</p>
+                }
+            </div>
+            <div class="discription-block">
+                <div>
+                    <label for="description">Description</label>
+                    <textarea 
+                     maxlength="300" 
+                     [(ngModel)]="description"
+                     name="description"
+                     placeholder="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo, alias."></textarea>
+                </div>
+            </div>
+        </div>
 
         <form>
 
@@ -35,17 +56,12 @@
                 <input [(ngModel)]="nftPrice" name="price" type="number" placeholder="Set price QUBE">
             </div>
 
-            <div>
-                <label for="description">Description</label>
-                <textarea 
-                 maxlength="300" 
-                 [(ngModel)]="description"
-                 name="description"
-                 placeholder="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo, alias."></textarea>
-            </div>
-
             <div class="btn-block">
-                <button (click)=createNft()>Create!</button>
+                @if(!loading) {
+                    <button (click)=createNft()>Create!</button>
+                } @else {
+                    <button (click)=createNft() disabled>Creating...</button>
+                }
             </div>
 
         </form>
@@ -53,7 +69,7 @@
 
         <p class="capture">Congratulation!</p>
         <div class="img">
-            <img src="images/nfts/monkey.png" alt="Nft изображение">
+            <img [src]="createdNftImageUrl" alt="Nft изображение" class="created-nft-img">
             <p class="text">Your {{ nftName }} was succesfully created.</p>
         </div>
 

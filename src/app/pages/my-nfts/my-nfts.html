@@ -14,7 +14,7 @@
                     <div class="author-block">
 
                         <div class="creator-block">
-                            <img class="avatar" [src]="nft.avatar" alt="Аватарка пользователя">
+                            <img class="avatar" [src]="getAuthorAvatar(currentUser)" alt="Аватарка пользователя">
                             <p>{{ nft.owner }}</p>
                         </div>
 
@@ -57,9 +57,9 @@
                                     <p class="price">$ {{ nft.price * 49.99 }}</p>
                                 </span>
                                 @if(nft["for-sale"]) {
-                                    <button (click)="setSaleStatus(nft)">Снять с продажи</button>
+                                    <button (click)="setSaleStatus(nft)" class="for-sale-status">Снять с продажи</button>
                                 } @else {
-                                    <button (click)="setSaleStatus(nft)">Выставить на продажу</button>
+                                    <button (click)="setSaleStatus(nft)" class="for-sale-status">На продажу</button>
                                 }
                             </div>
 

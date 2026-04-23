@@ -1,20 +1,17 @@
 <div class="container">
     <header>
         <p class="capture">NFT's</p>
-    
         <input type="text" placeholder="Search">
     </header>
 
     @if(nfts.length !== 0) {
-            <div class="cards">
-            @for(nft of nfts; track $index) {
+        <div class="cards">
+            @for(nft of nfts; track nft.id) {
                 @if(nft["for-sale"]) {
                     <div class="card">
-                    
                         <div class="author-block">
-
                             <div class="creator-block">
-                                <img class="avatar" [src]="nft.avatar" alt="Аватарка пользователя">
+                                <img class="avatar" [src]="getAuthorAvatar(nft.owner)" alt="Аватарка пользователя">
                                 <p>{{ nft.owner }}</p>
                             </div>
 
@@ -23,7 +20,7 @@
                                     <div class="heart-box" (click)="setLike(nft)">
                                         <div class="heart"></div>
                                     </div>
-                                    <p class="likes-count">{{ nft["likes"] }}</p>
+                                    <p class="likes-count">{{ nft.likes }}</p>
                                 </span>
                                 <div class="more-actions">
                                     <div class="circle"></div>
@@ -34,13 +31,10 @@
                         </div>
 
                         <div class="nft-block">
-
                             <img (click)="openNft(nft.name)" class="nft-image" [src]="nft['nft-picture']" alt="Картинка NFT">
 
                             <div class="info">
-
                                 <div class="text" (click)="openNft(nft.name)">
-
                                     <div class="names">
                                         <p class="collection-name">{{ nft["collection-name"] }}</p>
                                         <p class="nft-name">{{ nft.name }}</p>
@@ -54,16 +48,15 @@
 
                                 <div class="price-and-btn">
                                     <span class="price" (click)="openNft(nft.name)">
-                                        <p class="price">$ {{ nft.price * 49.99}}</p>
+                                        <p class="price">$ {{ (+nft.price * 49.99).toFixed(2) }}</p>
                                     </span>
+                                    
+                                    @if(nft.owner !== currentUser) {
+                                        <button (click)="buy(nft)" class="buy-btn">Buy</button>
+                                    }
                                 </div>
-                                @if(nft["owner"] !== currentUser) {
-                                    <button (click)="buy(nft)" class="buy-btn">Buy</button>
-                                }
                             </div>
-
                         </div>
-                    
                     </div>
                 }
             }
@@ -73,5 +66,4 @@
             <p>Пока нету nft</p>
         </div>
     }
-
 </div>

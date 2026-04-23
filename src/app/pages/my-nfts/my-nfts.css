@@ -2,6 +2,15 @@ p {
     color: rgba(57, 206, 154, 1);
 }
 
+.for-sale-status {
+    width: 152px;
+    height: 32px;
+    background-color: rgba(57, 206, 154, 1);
+    border-radius: 10px;
+    font-size: 16px;
+    border: none;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -79,6 +88,7 @@ input:focus {
     width: 32px;
     height: 32px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .btns-block {
